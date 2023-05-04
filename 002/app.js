@@ -63,3 +63,69 @@ console.log(home, home[1], home.length);
 for (let i = 0; i < home.length; i++) {
     console.log(home[i]);
 }
+
+function rand(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+let h = 0;
+
+do {
+    const now = rand(0, 1) ? 'H' : 'S';
+    now == 'H' && h++;
+    // console.log('%c' + now, 'color:pink;');
+
+} while (h < 3);
+
+
+let bolt = 0;
+const grandpa = rand(0, 600);
+bolt = grandpa;
+console.log('%c' + bolt, 'color:orange;');
+while (bolt < 400) {
+    const nightOut = rand(10, 60);
+    bolt += nightOut;
+    // console.log('%c' + bolt, 'color:crimson;');
+}
+
+/*
+< ---- >=
+> ---- <=
+== --- !=
+&& --- ||
+*/
+
+
+let A = 2;
+
+console.log(A++ * ++A);
+// 2 * 4
+
+
+let a = 1;
+
+if (a-- && a) {
+    // console.log('%cJa ja', 'color:skyblue;');
+} else {
+    // console.log('%cNo no', 'color:yellow;');
+}
+
+
+let b = 0;
+
+b > 5 ?
+    console.log('%cJa ja > 5', 'color:skyblue;') :
+    b > 2 ?
+    console.log('%cJa ja > 2', 'color:skyblue;') :
+    console.log('%cNo no', 'color:yellow;');
+
+
+let C = 0;
+
+console.log(C-- || C-- || C-- || C-- || C-- || C--); // 1 true
+
+let D = 23;
+
+console.log(D-- && D-- && D-- && D-- && D-- && D--); //1 false
