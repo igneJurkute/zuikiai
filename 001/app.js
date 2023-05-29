@@ -22,3 +22,8 @@ console.log('-->', ++f, typeof f);
 
 let z = 100 / 0;
 console.log('-->', z, typeof z);
+
+const make = 'Ford';
+const model = 'Mustang';
+const car = { make, model };
+console.log(car);
