@@ -14,5 +14,7 @@
             "email": "127085677+igneJurkute@users.noreply.github.com"
         }
     ],
-    "require": {}
+    "require": {
+        "ramsey/uuid": "^4.7"
+    }
 }

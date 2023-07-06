@@ -16,7 +16,9 @@ class RacoonController
             'pageTitle' => 'Racoons list',
             'racoons' => $data->showAll(),
         ]);
-    }public function create()
+    }
+
+    public function create()
     {
         return App::view('racoon/create', [
             'pageTitle' => 'Create racoon',
@@ -29,7 +31,9 @@ class RacoonController
         Messages::addMessage('success', 'Racoon created');
 
         header('Location: /racoon');
-    }   public function edit(int $id)
+    }
+
+    public function edit(int $id)
     {
         $data = new FileWriter('racoon');
         $racoon = $data->show($id);
@@ -46,6 +50,7 @@ class RacoonController
 
         header('Location: /racoon');
     }
+
     public function delete(int $id)
     {
         $racoon = (new FileWriter('racoon'))->show($id);
