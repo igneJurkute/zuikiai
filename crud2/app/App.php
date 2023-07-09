@@ -1,18 +1,24 @@
 <?php
 namespace Colors;
+
 use Colors\Controllers\RacoonController;
 use Colors\Controllers\HomeController;
 use Colors\Controllers\LoginController;
 use Colors\Controllers\ColorController;
 use Colors\FileWriter;
+use Colors\DatabaseWriter;
+
 class App {
-    const DB = 'file';
+
+    const DB = 'database';
+
     static public function start() 
     {
         $url = explode('/', $_SERVER['REQUEST_URI']);
         array_shift($url);
         return self::router($url);
     }
+
     static public function get($table)
     {
         if (self::DB == 'file') {
@@ -22,11 +28,13 @@ class App {
             return new DatabaseWriter($table);
         }
     }
+
     static private function router($url)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'GET' && count($url) == 1 && $url[0] == '') {
             return (new HomeController)->index();
         }
+
         // Login
         if ($_SERVER['REQUEST_METHOD'] == 'GET' && count($url) == 1 && $url[0] == 'login') {
             return (new LoginController)->index();
@@ -38,12 +46,14 @@ class App {
             return (new LoginController)->logout($_POST);
         }
         // Login END
+
         // Auth middleware
         if (!isset($_SESSION['email'])) {
             header('Location: /login');
             die;
         }
         // Auth middleware END
+
         // Racoon
         if ($_SERVER['REQUEST_METHOD'] == 'GET' && count($url) == 1 && $url[0] == 'racoon') {
            return (new RacoonController)->index();
@@ -68,8 +78,8 @@ class App {
         }
         // Racoon END
 
-         // Colors
-         if ($_SERVER['REQUEST_METHOD'] == 'GET' && count($url) == 1 && $url[0] == 'colors') {
+        // Colors
+        if ($_SERVER['REQUEST_METHOD'] == 'GET' && count($url) == 1 && $url[0] == 'colors') {
             return (new ColorController)->index();
         }
         if ($_SERVER['REQUEST_METHOD'] == 'GET' && count($url) == 2 && $url[0] == 'colors' && $url[1] == 'list') {
@@ -85,7 +95,13 @@ class App {
             return (new ColorController)->edit($url[2]);
         }
         if ($_SERVER['REQUEST_METHOD'] == 'PUT' && count($url) == 3 && $url[0] == 'colors' && $url[1] == 'update') {
+            return (new ColorController)->update($url[2], json_decode(file_get_contents('php://input'), 1));
         }
+
+
+
+
+
 
 
         {
@@ -94,6 +110,7 @@ class App {
             ]);
         }
     }
+
     static public function view($path, $data = null)
     {
         if ($data) {
@@ -101,30 +118,39 @@ class App {
         }
 
         ob_start();
+
         require __DIR__ . '/../views/top.php';
         require __DIR__ . '/../views/' . $path . '.php';
         require __DIR__ . '/../views/bottom.php';
+
         return ob_get_clean();
     }
+
     static public function redirect($url)
     {
         header('Location: ' . $url);
         // die;
     }
+
     static public function json($data)
     {
         header('Content-Type: application/json');
         return json_encode($data);
     }
+
     static public function render($path, $data = null)
     {
         if ($data) {
             extract($data);
         }
+
         ob_start();
+
         require __DIR__ . '/../views/' . $path . '.php';
+
         return ob_get_clean();
     }
+
 }
 
          
