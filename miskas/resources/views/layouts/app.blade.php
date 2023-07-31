@@ -95,6 +95,7 @@
                             </nav>
                             <main class="py-4">
                                 @include('msg.message')
+                                @include('msg.errors')
                                 @yield('content')
                             </main>
                         </div>
