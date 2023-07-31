@@ -94,6 +94,7 @@
                                 </div>
                             </nav>
                             <main class="py-4">
+                                @include('msg.message')
                                 @yield('content')
                             </main>
                         </div>
