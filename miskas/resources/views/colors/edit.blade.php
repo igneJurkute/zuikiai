@@ -15,8 +15,11 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Author</label>
-                            <input name="color_author" type="text" class="form-control" value="{{old('color_author', $color->author)}}">
-                        </div>
+                            <select name="author_id" class="form-select">
+                                @foreach ($authors as $author)
+                                <option value="{{$author->id}}" @if($author->id == old('author_id', $color->author_id)) selected @endif>{{$author->name}}</option>
+                                @endforeach
+                            </select>
                         <div class="mb-3">
                             <label class="form-label">Rate</label>
                             <input name="color_rate" type="number" class="form-control" value={{old('color_rate', $color->rate)}}>
